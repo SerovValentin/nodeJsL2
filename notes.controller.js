@@ -37,8 +37,18 @@ async function printNotes() {
   });
 }
 
+async function editNote(id, newTitle) {
+  const notes = await getNotes();
+  const note = notes.find((note) => note.id === id);
+  note.title = newTitle;
+  await fs.writeFile(notesPath, JSON.stringify(notes));
+  console.log(chalk.bgGreen("Note edited"));
+}
+
 module.exports = {
   addNote,
   printNotes,
   removeNote,
+  getNotes,
+  editNote,
 };
